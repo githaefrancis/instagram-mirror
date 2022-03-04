@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'registration',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -38,8 +39,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'images',
-    'user_profile'
+    'user_profile',
+    'django_bootstrap5',
 ]
+
+ACCOUNT_ACTIVATION_DAYS=1
+REGISTRATION_AUTO_LOGIN=True
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
