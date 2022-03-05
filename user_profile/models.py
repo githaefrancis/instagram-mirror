@@ -1,3 +1,27 @@
-from django.db import models
 
+from django.db import models
+import datetime as dt
+from django.contrib.auth.models import AbstractUser,User
+from django.conf import settings
+
+UserCustom=settings.AUTH_USER_MODEL
 # Create your models here.
+
+class CustomUser(AbstractUser):
+  '''
+  CustomUser class that defines custom fields for the User table.
+  '''
+  follows=models.ManyToManyField(UserCustom,blank=True,related_name='followed_by')
+
+class UserProfile(models.Model):
+  '''
+  UserProfile class that defines the structure of the profile
+  '''
+  user=models.ForeignKey(UserCustom,on_delete=models.CASCADE)
+  profile_photo=models.ImageField(upload_to='photos/')
+  bio=models.CharField(max_length=500,blank=True)
+  created_at=models.DateTimeField(auto_now_add=True)
+
+  def __str__(self):
+    return self.bio
+  
