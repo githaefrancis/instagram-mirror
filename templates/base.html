@@ -10,11 +10,13 @@
   {% block styles %}
 
   {% bootstrap_css %}
+  <link rel="stylesheet" href="{% static 'css/index.css' %}">
+
   {% endblock %}
 </head>
 <body>
   {% include 'navbar.html' %}
-  <h1 class="text-danger">Goo</h1>
+
   {% block content %}
 
   {% endblock %}
