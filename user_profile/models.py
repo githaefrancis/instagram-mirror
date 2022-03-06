@@ -13,6 +13,15 @@ class CustomUser(AbstractUser):
   '''
   follows=models.ManyToManyField(UserCustom,blank=True,related_name='followed_by')
 
+  def save_user(self):
+    '''
+    method to save a user
+    '''
+
+    self.save()
+
+
+
 class UserProfile(models.Model):
   '''
   UserProfile class that defines the structure of the profile
@@ -25,3 +34,22 @@ class UserProfile(models.Model):
   def __str__(self):
     return self.bio
   
+  def save_profile(self):
+    '''
+    Method to save profile
+    '''
+    self.save()
+
+  def update_profile(self,**kwargs):
+    '''
+    Method to update profile
+    '''
+    try:
+      for key,value in kwargs.items():
+        setattr(self,key,value)
+      
+      self.save()
+      return
+
+    except:
+      return
