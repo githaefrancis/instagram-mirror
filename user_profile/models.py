@@ -53,3 +53,9 @@ class UserProfile(models.Model):
 
     except:
       return
+
+  def delete_profile(self):
+    '''
+    Method to delete profile
+    '''
+    self.delete()

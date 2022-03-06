@@ -49,3 +49,15 @@ class ProfileTestCase(TestCase):
     self.profile_to_update=UserProfile.objects.filter(bio='The best').first()
     self.profile_to_update.update_profile(bio='The new bio')
     self.assertTrue(len(UserProfile.objects.filter(bio='The new bio').all())>0)
+
+
+  def test_delete_profile(self):
+    '''
+    Test delete profile method
+    ''' 
+    self.user.save_user()
+    self.profile.save_profile()
+    self.profile_to_delete=UserProfile.objects.filter(bio='The best').first()
+    self.profile_to_delete.delete_profile()
+    self.assertEquals(len(UserProfile.objects.filter(bio='The best')),0)
+    
