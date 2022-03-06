@@ -1,6 +1,6 @@
-from multiprocessing import context
-from django.shortcuts import render
 
+from django.shortcuts import render
+from .forms import ImageForm
 # Create your views here.
 
 
@@ -12,3 +12,14 @@ def index(request):
   '''
   context={}
   return render(request,'index.html',context)
+
+
+def new_post(request):
+  
+
+  form=ImageForm()
+  context={
+
+    'form':form
+  }
+  return render(request,'new_post.html',context)
