@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% load django_bootstrap5 %}
+
+{% block content%}
+{{form.media}}
+
+<div class="row mt-3">
+
+  <div class="col-md-2">
+
+
+  </div>
+
+  <div class="col-md-6">
+
+<div class="card w-50 m-auto p-5 mt-3">
+  <h3 class="text-center">profile</h3>
+<form action="{% url 'profile' %}" method='post' enctype="multipart/form-data">
+
+  {% csrf_token %}
+  {% bootstrap_form form %}
+  <input type="submit" class="btn btn-primary btn-lg" value="Post">
+
+
+</form>
+</div>
+
+
+  </div>
+
+  <div class="col-md-2">
+
+    <h5>Suggestions For You</h5>
+  </div>
+
+  <div class="col-md-2"></div>
+</div>
+
+{% endblock %}
