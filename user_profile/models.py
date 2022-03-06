@@ -20,6 +20,10 @@ class CustomUser(AbstractUser):
 
     self.save()
 
+  def follow_user(self,user_to_follow):
+    self.follows.add(user_to_follow)
+
+
 
 
 class UserProfile(models.Model):
@@ -59,3 +63,5 @@ class UserProfile(models.Model):
     Method to delete profile
     '''
     self.delete()
+
+  

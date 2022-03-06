@@ -11,9 +11,20 @@ class UserTestClass(TestCase):
   '''
   def setUp(self):
     self.user=CustomUser(email='user@gmail.com',username='user',first_name='user',last_name='a')
+    self.user2=CustomUser(email='user2@gmail.com',username='user2',first_name='user2',last_name='b')
 
   def test_instance(self):
     self.assertTrue(isinstance(self.user,CustomUser))
+
+  def test_follow(self):
+    '''
+    Test follow user method
+    '''
+    self.user.save_user()
+    self.user2.save_user()
+    self.user.follow_user(self.user2)
+
+    self.assertTrue(len(CustomUser.objects.filter(username='user').first().follows.all())>0)
 
 
 class ProfileTestCase(TestCase):
@@ -60,4 +71,7 @@ class ProfileTestCase(TestCase):
     self.profile_to_delete=UserProfile.objects.filter(bio='The best').first()
     self.profile_to_delete.delete_profile()
     self.assertEquals(len(UserProfile.objects.filter(bio='The best')),0)
+
+
+
     
