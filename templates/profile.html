@@ -16,17 +16,26 @@
 
   <div class="col-md-6">
 
-<div class="card w-50 m-auto p-5 mt-3">
-  <h3 class="text-center">profile</h3>
-<form action="{% url 'profile' %}" method='post' enctype="multipart/form-data">
+    <div class="card  m-auto p-5 mt-3">
+      {% if profile %}
+      <h3>Profile</h3>
+      <img src="{{profile.profile_photo.url}}" alt="">
+      <p>Username: {{user.username}}</p>
+      <p>Bio: {{profile.bio}}</p>
 
-  {% csrf_token %}
-  {% bootstrap_form form %}
-  <input type="submit" class="btn btn-primary btn-lg" value="Post">
+      {% else %}
+      <h3 class="text-center">Update profile</h3>
+      <form action="{% url 'profile' %}" method='post' enctype="multipart/form-data">
+
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <input type="submit" class="btn btn-primary btn-lg" value="Post">
 
 
-</form>
-</div>
+      </form>
+
+      {% endif %}
+    </div>
 
 
   </div>

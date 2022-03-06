@@ -50,6 +50,7 @@ def new_post(request):
 
 def profile(request):
   current_user=request.user
+  profile=UserProfile.objects.filter(user=current_user).first()
   if request.method=='POST':
     form=ProfileForm(request.POST,request.FILES)
     if form.is_valid():
@@ -60,6 +61,7 @@ def profile(request):
 
   form=ProfileForm()
   context={
-    "form":form
+    "form":form,
+    "profile":profile
   }
   return render(request,'profile.html',context)
