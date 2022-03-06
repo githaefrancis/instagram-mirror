@@ -2,9 +2,10 @@
 from django import views
 from django.shortcuts import redirect, render
 
-from user_profile.models import UserProfile
+from user_profile.models import CustomUser, UserProfile
 from .forms import ImageForm
 from .models import Image
+
 from user_profile.forms import ProfileForm
 # Create your views here.
 
@@ -16,9 +17,10 @@ def index(request):
   Args: request
   '''
   images=Image.get_images_feed()
-  
+  users=CustomUser.get_all_users()
   context={
     "images":images,
+    "users":users,
     
   }
 
@@ -51,6 +53,8 @@ def new_post(request):
 def profile(request):
   current_user=request.user
   profile=UserProfile.objects.filter(user=current_user).first()
+  following=current_user.get_following()
+  followers=current_user.get_followers()
   if request.method=='POST':
     form=ProfileForm(request.POST,request.FILES)
     if form.is_valid():
@@ -62,6 +66,15 @@ def profile(request):
   form=ProfileForm()
   context={
     "form":form,
-    "profile":profile
+    "profile":profile,
+    "following":following,
+    "followers":followers,
   }
   return render(request,'profile.html',context)
+
+
+def follow(request,id):
+  user_to_follow=CustomUser.objects.filter(id=id).first()
+  current_user=request.user
+  current_user.follow_user(user_to_follow)
+  return redirect('home')

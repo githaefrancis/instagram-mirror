@@ -22,6 +22,18 @@ class CustomUser(AbstractUser):
 
   def follow_user(self,user_to_follow):
     self.follows.add(user_to_follow)
+    return
+
+  def get_following(self):
+    return self.follows.all()
+
+  def get_followers(self):
+    return self.followed_by.all()
+
+  @classmethod
+  def get_all_users(cls):
+    return CustomUser.objects.all()
+
 
 
 
