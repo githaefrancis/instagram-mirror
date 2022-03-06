@@ -3,6 +3,7 @@ from django.shortcuts import redirect, render
 
 from user_profile.models import UserProfile
 from .forms import ImageForm
+from .models import Image
 # Create your views here.
 
 
@@ -12,7 +13,15 @@ def index(request):
 
   Args: request
   '''
-  context={}
+  images=Image.get_images_feed()
+  
+  context={
+    "images":images,
+    
+  }
+
+
+  
   return render(request,'index.html',context)
 
 
