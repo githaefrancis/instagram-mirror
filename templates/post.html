@@ -23,7 +23,9 @@
     </div>
 
     <div class="card-text">
-      40 likes
+
+        {% load dict_filter %}
+      {{likes | dict_value:image.id}} likes
     </div>
   </div>
 
@@ -31,8 +33,14 @@
     <div class="actions">
       
       <!-- <i class="far fa-heart text-primary like-icon" style="color:blue;"></i> -->
-      <a href="{% url 'like' image.id %}"><i class="bi bi-heart text-primary fs-2"></i></a>
+      {% if like_status|dict_value:image.id %}
+     
       <a href="{% url 'like' image.id %}"><i class="bi bi-heart-fill text-primary fs-2"></i></a>
+      {% else %}
+     
+      <a href="{% url 'like' image.id %}"><i class="bi bi-heart text-primary fs-2"></i></a>
+      
+      {% endif %}
       <a href=""><i class="bi bi-chat text-dark fs-2"></i></a>
       <a href=""><i class="bi bi-send fs-2"></i></a>
       

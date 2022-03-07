@@ -8,7 +8,7 @@ from .models import Image,Like
 
 from user_profile.forms import ProfileForm
 from django.contrib.auth.decorators import login_required
-
+from .request import get_likes_for_images,get_likes_status
 
 # Create your views here.
 
@@ -21,11 +21,14 @@ def index(request):
   '''
   current_user=request.user
   images=Image.get_images_feed(current_user)
+  likes_count=get_likes_for_images(images)
   users=CustomUser.get_all_users()
+  likes_status=get_likes_status(images,current_user)
   context={
     "images":images,
     "users":users,
-    
+    "likes":likes_count,
+    "like_status":likes_status,
   }
 
 
