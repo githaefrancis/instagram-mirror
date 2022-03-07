@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'images',
     'user_profile',
     'django_bootstrap5',
+    'fontawesome_5',
 ]
 
 ACCOUNT_ACTIVATION_DAYS=1

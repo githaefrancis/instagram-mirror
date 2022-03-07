@@ -4,12 +4,15 @@ from django.shortcuts import redirect, render
 
 from user_profile.models import CustomUser, UserProfile
 from .forms import ImageForm
-from .models import Image
+from .models import Image,Like
 
 from user_profile.forms import ProfileForm
+from django.contrib.auth.decorators import login_required
+
+
 # Create your views here.
 
-
+@login_required(login_url='/accounts/login')
 def index(request):
   '''
   View function to display the root route
@@ -81,3 +84,11 @@ def follow(request,id):
   current_user=request.user
   current_user.follow_user(user_to_follow)
   return redirect('home')
+
+
+def like(request,id):
+  image_to_like=Image.objects.filter(id=id).first()
+  current_user=request.user
+  if len(Like.objects.filter(image=image_to_like,user=current_user).first()==None):
+    new_like=Like(user=current_user,image=image_to_like)
+    new_like.save_like()

@@ -1,4 +1,7 @@
 {% load static %}
+{% load fontawesome_5 %}
+{% fontawesome_5_static %}
+
 <div class="card border-1 my-2">
 
 
@@ -15,7 +18,7 @@
     <div class="card-img d-flex justify-content-center insta-post">
 
       <!-- <img src="{% static 'asset-images/model.jpg' %}" alt="" class=" "> -->
-      <img src="{{ image.image.url }}" alt="" class=" ">
+      <img src="{{ image.image.url }}" alt="" class="img-fluid ">
 
     </div>
 
@@ -25,7 +28,17 @@
   </div>
 
   <div class="card-footer">
+    <div class="actions">
+      
+      <!-- <i class="far fa-heart text-primary like-icon" style="color:blue;"></i> -->
+      <i class="bi bi-heart text-primary fs-2"></i>
+      <i class="bi bi-heart-fill text-primary fs-2"></i>
+      <i class="bi bi-chat text-dark fs-2"></i>
+      <i class="bi bi-send fs-2"></i>
+      <img src="" alt="">
+      <img src="" alt="">
 
+    </div>
 
   </div>
 </div>

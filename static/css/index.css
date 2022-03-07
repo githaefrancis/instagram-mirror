@@ -4,3 +4,11 @@ height:24rem;
 object-fit: cover;
 object-position: 50% 50%;
 }
+
+.like-icon{
+
+  text-shadow: -2px 0 black , 0 2px black, 2px 0 black, 0 -2px black;
+}
+.heading{
+  color:red
+}

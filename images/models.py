@@ -52,6 +52,14 @@ class Like(models.Model):
   image=models.ForeignKey(Image,on_delete=models.CASCADE)
   user=models.ForeignKey(UserCustom,on_delete=models.CASCADE)
 
+  @classmethod
+  def get_likes_for_image(cls,id):
+    return Like.objects.filter(id=id).all()
+
+  def save_like(self):
+    self.save()
+    
+  
 class Comment(models.Model):
   comment=models.CharField(max_length=500)
   image=models.ForeignKey(Image,on_delete=models.CASCADE)
