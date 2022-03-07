@@ -16,7 +16,8 @@ def index(request):
 
   Args: request
   '''
-  images=Image.get_images_feed()
+  current_user=request.user
+  images=Image.get_images_feed(current_user)
   users=CustomUser.get_all_users()
   context={
     "images":images,
@@ -55,6 +56,7 @@ def profile(request):
   profile=UserProfile.objects.filter(user=current_user).first()
   following=current_user.get_following()
   followers=current_user.get_followers()
+  uploaded_images=Image.get_images_by_user(profile)
   if request.method=='POST':
     form=ProfileForm(request.POST,request.FILES)
     if form.is_valid():
@@ -69,6 +71,7 @@ def profile(request):
     "profile":profile,
     "following":following,
     "followers":followers,
+    "uploaded_images":uploaded_images
   }
   return render(request,'profile.html',context)
 

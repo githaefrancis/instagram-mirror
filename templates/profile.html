@@ -23,6 +23,24 @@
       <p>Username: {{user.username}}</p>
       <p>Bio: {{profile.bio}}</p>
       <p>Following: {{following.count}}</p>
+      <p>Followers: {{followers.count}}</p>
+
+      <hr>
+      <div class="row">
+        {% if uploaded_images %}
+        
+        {% for image in uploaded_images %}
+        <div class="col-md-3">
+          <img src="{{image.image.url}}" alt="" class="img-fluid">
+        </div>
+
+
+        {% endfor %}
+        {% else %}
+
+        <h5>No post found</h5>
+        {% endif %}
+      </div>
 
       {% else %}
       <h3 class="text-center">Update profile</h3>

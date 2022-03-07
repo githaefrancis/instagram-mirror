@@ -1,6 +1,7 @@
 
 from django.db import models
-from user_profile.models import UserProfile
+from user_profile.models import CustomUser, UserProfile
+from itertools import chain
 # Create your models here.
 from django.conf import settings
 from datetime import datetime as dt
@@ -27,11 +28,24 @@ class Image(models.Model):
     self.delete()
 
   @classmethod
-  def get_images_feed(cls):
+  def get_images_feed(cls,user):
     '''
     get images feed to fetch photos to display in a users wall
     '''
-    return Image.objects.order_by('-created_at').all()
+    all_following=user.get_following()
+    
+    allowed_users=list(chain(all_following,[user]))
+    # all_following_profiles=list(user.profile for user in all_following)
+    all_followed_profiles=UserProfile.get_multiple_profiles(allowed_users)
+    return Image.objects.filter(profile__in=all_followed_profiles).order_by('-created_at').all()
+    # return Image.objects.order_by('-created_at').all()
+
+  @classmethod
+  def get_images_by_user(cls,profile):
+    '''
+    Method to fetch all images uploaded by a user
+    '''
+    return Image.objects.filter(profile=profile).all()
 
 
 class Like(models.Model):

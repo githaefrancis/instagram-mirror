@@ -76,4 +76,11 @@ class UserProfile(models.Model):
     '''
     self.delete()
 
+  @classmethod
+  def get_multiple_profiles(self,users):
+    '''
+    Method to get all profiles of multiple users
+    '''
+    return UserProfile.objects.filter(user__in=users).all()
+
   
