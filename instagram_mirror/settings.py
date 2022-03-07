@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+from email.policy import default
 from pathlib import Path
 import django_heroku
 import dj_database_url
@@ -99,6 +100,7 @@ WSGI_APPLICATION = 'instagram_mirror.wsgi.application'
 #     }
 # }
 
+MODE=config("MODE",default="dev")
 
 if config('MODE')=="dev":
     DATABASES={
@@ -164,7 +166,7 @@ EMAIL_PORT=config('EMAIL_PORT')
 EMAIL_HOST_USER=config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD=config('EMAIL_HOST_PASSWORD')
 
-
+STATIC_ROOT=os.path.join(BASE_DIR,'staticfiles')
 STATIC_URL = 'static/'
 STATICFILES_DIRS=[os.path.join(BASE_DIR,"static")]
 
@@ -174,6 +176,6 @@ STATICFILES_DIRS=[os.path.join(BASE_DIR,"static")]
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-django_heroku.settings(locals())
 
 AUTH_USER_MODEL='user_profile.CustomUser'
+django_heroku.settings(locals())
