@@ -58,6 +58,9 @@ class Like(models.Model):
 
   def save_like(self):
     self.save()
+
+  def unlike(self):
+    self.delete()
     
   
 class Comment(models.Model):

@@ -87,8 +87,14 @@ def follow(request,id):
 
 
 def like(request,id):
-  image_to_like=Image.objects.filter(id=id).first()
+  target_image=Image.objects.filter(id=id).first()
   current_user=request.user
-  if len(Like.objects.filter(image=image_to_like,user=current_user).first()==None):
-    new_like=Like(user=current_user,image=image_to_like)
+  existing_like=Like.objects.filter(image=target_image,user=current_user).first()
+  if existing_like==None:
+    new_like=Like(user=current_user,image=target_image)
     new_like.save_like()
+
+  else:  
+    existing_like.unlike()
+
+  return redirect('home')

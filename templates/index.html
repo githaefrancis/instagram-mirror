@@ -19,7 +19,7 @@
 
   <div class="col-md-2">
     {{user.username}}
-    <h5 class="heading">Suggestions For You</h5>
+    <h5 class="">Suggestions For You</h5>
     {% for user in users %}
     <p>{{user.username}} <a href="{% url 'follow' user.id %}">Follow</a></p>
     {% endfor %}
