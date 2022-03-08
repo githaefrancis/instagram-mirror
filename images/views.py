@@ -3,7 +3,7 @@ from django import views
 from django.shortcuts import redirect, render
 
 from user_profile.models import CustomUser, UserProfile
-from .forms import ImageForm
+from .forms import ImageForm,CommentForm
 from .models import Image,Like
 
 from user_profile.forms import ProfileForm
@@ -24,18 +24,21 @@ def index(request):
   likes_count=get_likes_for_images(images)
   users=CustomUser.get_all_users()
   likes_status=get_likes_status(images,current_user)
+
+  form=CommentForm()
   context={
     "images":images,
     "users":users,
     "likes":likes_count,
     "like_status":likes_status,
+    "form":form,
   }
 
 
   
   return render(request,'index.html',context)
 
-
+@login_required(login_url='/accounts/login')
 def new_post(request):
   
   current_user=request.user
@@ -57,6 +60,7 @@ def new_post(request):
   }
   return render(request,'new_post.html',context)
 
+@login_required(login_url='/accounts/login')
 def profile(request):
   current_user=request.user
   profile=UserProfile.objects.filter(user=current_user).first()
@@ -81,14 +85,14 @@ def profile(request):
   }
   return render(request,'profile.html',context)
 
-
+@login_required(login_url='/accounts/login')
 def follow(request,id):
   user_to_follow=CustomUser.objects.filter(id=id).first()
   current_user=request.user
   current_user.follow_user(user_to_follow)
   return redirect('home')
 
-
+@login_required(login_url='/accounts/login')
 def like(request,id):
   target_image=Image.objects.filter(id=id).first()
   current_user=request.user
@@ -99,5 +103,21 @@ def like(request,id):
 
   else:  
     existing_like.unlike()
+
+  return redirect('home')
+
+
+@login_required(login_url='/accounts/login')
+def comment(request,id):
+  if request.method=='POST':
+    form=CommentForm(request.POST)
+    target_image=Image.objects.filter(id=id).first()
+    current_user=request.user
+    if form.is_valid():
+      new_comment=form.save(commit=False)
+      new_comment.image=target_image
+      new_comment.user=current_user
+      new_comment.save_comment()
+
 
   return redirect('home')

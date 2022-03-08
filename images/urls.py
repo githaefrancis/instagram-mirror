@@ -7,6 +7,7 @@ urlpatterns=[
   path('profile',views.profile,name='profile'),
   re_path(r'^follow/(.*)$',views.follow,name='follow'),
   re_path(r'^like/(.*)$',views.like,name='like'),
+  re_path(r'^comment/(.*)$',views.comment,name='comment'),
 
 ]
 

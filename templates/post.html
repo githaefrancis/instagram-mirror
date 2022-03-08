@@ -1,3 +1,4 @@
+{% load django_bootstrap5 %}
 {% load static %}
 {% load fontawesome_5 %}
 {% fontawesome_5_static %}
@@ -44,6 +45,14 @@
       <a href=""><i class="bi bi-chat text-dark fs-2"></i></a>
       <a href=""><i class="bi bi-send fs-2"></i></a>
       
+      <form action="{% url 'comment' image.id%}" method='post' enctype="multipart/form-data" class="d-flex align-items-center">
+
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <input type="submit" class="btn btn-primary btn-md h-25 mx-3" value="Post">
+
+
+      </form>
 
     </div>
 

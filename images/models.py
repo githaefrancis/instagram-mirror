@@ -67,4 +67,7 @@ class Comment(models.Model):
   comment=models.CharField(max_length=500)
   image=models.ForeignKey(Image,on_delete=models.CASCADE)
   user=models.ForeignKey(UserCustom,on_delete=models.CASCADE)
+
+  def save_comment(self):
+    self.save()
   
