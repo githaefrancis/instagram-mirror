@@ -34,6 +34,10 @@ class CustomUser(AbstractUser):
   def get_all_users(cls):
     return CustomUser.objects.all()
 
+  @classmethod
+  def get_users_not_followed(cls,followed_ids):
+    return CustomUser.objects.exclude(id__in=followed_ids)
+
 
 
 

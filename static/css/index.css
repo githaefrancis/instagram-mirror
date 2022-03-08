@@ -12,3 +12,8 @@ object-position: 50% 50%;
 .heading{
   color:red
 }
+
+#image-modal{
+  min-height:30rem;
+
+}

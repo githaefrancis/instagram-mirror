@@ -1,10 +1,11 @@
 
+from django.http import HttpResponse, JsonResponse
 from django import views
 from django.shortcuts import redirect, render
 
 from user_profile.models import CustomUser, UserProfile
 from .forms import ImageForm,CommentForm
-from .models import Image,Like
+from .models import Image,Like,Comment
 
 from user_profile.forms import ProfileForm
 from django.contrib.auth.decorators import login_required
@@ -24,11 +25,13 @@ def index(request):
   likes_count=get_likes_for_images(images)
   users=CustomUser.get_all_users()
   likes_status=get_likes_status(images,current_user)
-
+  following=current_user.get_following()
+  followed_ids=list(i.id for i in following)
+  users_not_followed=CustomUser.get_users_not_followed(followed_ids)
   form=CommentForm()
   context={
     "images":images,
-    "users":users,
+    "users":users_not_followed,
     "likes":likes_count,
     "like_status":likes_status,
     "form":form,
@@ -120,4 +123,16 @@ def comment(request,id):
       new_comment.save_comment()
 
 
-  return redirect('home')
+    return redirect('home')
+
+  elif request.method=='GET':
+    target_image=Image.objects.filter(id=id).first()
+    current_user=request.user
+    comments=Comment.objects.filter(image=target_image)
+    image_comments=list({'comment':i.comment,'user':i.user.username} for i in comments)
+    data={
+      
+      'comments':image_comments,
+      'imageurl':target_image.image.url,
+    }
+    return JsonResponse(data)

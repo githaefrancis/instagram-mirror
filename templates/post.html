@@ -56,7 +56,11 @@
 
       </div>
       <div>
-        <a href="">View all comments</a>
+        <!-- <a href="" class="view-comment" id="image{{image.id}}">View all comments</a> -->
+        <a class="view-comment" id="image{{image.id}}" data-bs-toggle="modal" data-bs-target="#image-modal"> View all comments</a>
+        
+        <!-- <button class="view-comment  btn btn-success" id="image{{image.id}}" data-bs-toggle="modal" data-bs-target="#image-modal"> View</button> -->
+
       </div>
       <form action="{% url 'comment' image.id%}" method='post' enctype="multipart/form-data" class="d-flex align-items-center">
 
