@@ -38,6 +38,9 @@ class CustomUser(AbstractUser):
   def get_users_not_followed(cls,followed_ids):
     return CustomUser.objects.exclude(id__in=followed_ids)
 
+  @classmethod
+  def search_users(cls,search_word):
+    return CustomUser.objects.filter(username__icontains=search_word).all()
 
 
 

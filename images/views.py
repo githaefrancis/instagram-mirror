@@ -1,5 +1,5 @@
 
-from django.http import HttpResponse, JsonResponse
+from django.http import Http404, HttpResponse, JsonResponse
 from django import views
 from django.shortcuts import redirect, render
 
@@ -89,6 +89,9 @@ def profile(request):
   return render(request,'profile.html',context)
 
 @login_required(login_url='/accounts/login')
+
+
+@login_required(login_url='/accounts/login')
 def follow(request,id):
   user_to_follow=CustomUser.objects.filter(id=id).first()
   current_user=request.user
@@ -136,3 +139,22 @@ def comment(request,id):
       'imageurl':target_image.image.url,
     }
     return JsonResponse(data)
+
+
+def search(request):
+  if 'search_word' in request.GET and request.GET["search_word"]:
+
+    try:
+      search_term=request.GET.get("search_word")
+    
+      results=CustomUser.search_users(search_term)
+      context={
+      
+      "results":results
+      
+      }
+      return render(request,'search_results.html',context)
+
+    except ValueError:
+      raise Http404
+    

@@ -8,6 +8,7 @@ urlpatterns=[
   re_path(r'^follow/(.*)$',views.follow,name='follow'),
   re_path(r'^like/(.*)$',views.like,name='like'),
   re_path(r'^comment/(.*)$',views.comment,name='comment'),
+  re_path(r'^search/',views.search,name='search')
   
 
 ]
