@@ -30,11 +30,13 @@
             <img src="{% static 'asset-images/new.png' %}" alt="" height="32" width="32" class="">
           </a>
         </li>
+        {% if user.is_authenticated %}
+        
         <li class="nav-item dropdown mx-lg-5">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
             aria-expanded="false">
             <img src="{{user.user_profile.profile_photo.url}}" alt="" height="32" width="32" class="rounded-circle">
-
+            
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
@@ -42,6 +44,9 @@
 
           </ul>
         </li>
+        {% else %}
+          <a href="/accounts/login">Login</a>
+        {% endif %}
 
       </ul>
    
