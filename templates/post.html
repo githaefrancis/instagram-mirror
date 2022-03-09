@@ -7,7 +7,7 @@
 
 
   <div class="card-title border-1 p-3">
-    <img src="{% static 'asset-images/model.jpg' %}" alt="" height="48" width="48"  class="rounded-circle">
+    <img src="{{ image.profile.profile_photo.url }}" alt="" height="48" width="48"  class="rounded-circle">
     
     
     <span class="px-3">{{image.profile.user.username}}</span>

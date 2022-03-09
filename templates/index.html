@@ -62,7 +62,7 @@
   </div>
 
   <div class="col-md-2">
-    {{user.username}}
+    <img src="{{user.user_profile.profile_photo.url}}" alt="" height="32" width="32" class="rounded-circle mx-3">{{user.username}}
     <h5 class="">Suggestions For You</h5>
     {% for user in users %}
     <p>{{user.username}} <a href="{% url 'follow' user.id %}">Follow</a></p>
