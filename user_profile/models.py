@@ -49,7 +49,7 @@ class UserProfile(models.Model):
   '''
   UserProfile class that defines the structure of the profile
   '''
-  user=models.OneToOneField(UserCustom,on_delete=models.CASCADE)
+  user=models.OneToOneField(UserCustom,related_name='user_profile',on_delete=models.CASCADE)
   profile_photo=models.ImageField(upload_to='photos/')
   bio=models.CharField(max_length=500,blank=True)
   created_at=models.DateTimeField(auto_now_add=True)

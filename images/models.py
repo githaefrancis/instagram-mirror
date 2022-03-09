@@ -11,7 +11,7 @@ class Image(models.Model):
   image=models.ImageField(upload_to='photos/')
   image_name=models.CharField(max_length=100)
   image_caption=models.CharField(max_length=500)
-  profile=models.ForeignKey(UserProfile,on_delete=models.CASCADE)
+  profile=models.ForeignKey(UserProfile,related_name='posted_images',on_delete=models.CASCADE)
   created_at=models.DateTimeField(auto_now_add=True)
   def __str__(self):
     return self.image_name
