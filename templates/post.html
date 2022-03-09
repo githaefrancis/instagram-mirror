@@ -62,7 +62,7 @@
         <!-- <button class="view-comment  btn btn-success" id="image{{image.id}}" data-bs-toggle="modal" data-bs-target="#image-modal"> View</button> -->
 
       </div>
-      <form action="{% url 'comment' image.id%}" method='post' enctype="multipart/form-data" class="d-flex align-items-center">
+      <form action="{% url 'comment' image.id%}" method='post' class="d-flex align-items-center">
 
         {% csrf_token %}
         {% bootstrap_form form %}
