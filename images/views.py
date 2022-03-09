@@ -27,6 +27,10 @@ def index(request):
   likes_status=get_likes_status(images,current_user)
   following=current_user.get_following()
   followed_ids=list(i.id for i in following)
+  profile=UserProfile.objects.filter(user=current_user).first()
+
+  if profile==None:
+    return redirect('profile')
   users_not_followed=CustomUser.get_users_not_followed(followed_ids)
   form=CommentForm()
   context={
@@ -45,8 +49,11 @@ def index(request):
 def new_post(request):
   
   current_user=request.user
-  current_profile=UserProfile.objects.filter(user=current_user).first()
 
+  
+  current_profile=UserProfile.objects.filter(user=current_user).first()
+  if current_profile==None:
+    return redirect('profile')
   if request.method=='POST':
     form=ImageForm(request.POST,request.FILES)
     if form.is_valid():
@@ -140,8 +147,13 @@ def comment(request,id):
     }
     return JsonResponse(data)
 
-
+@login_required(login_url='/accounts/login')
 def search(request):
+  current_user=request.user
+  profile=UserProfile.objects.filter(user=current_user).first()
+
+  if profile==None:
+    return redirect('profile')
   if 'search_word' in request.GET and request.GET["search_word"]:
 
     try:

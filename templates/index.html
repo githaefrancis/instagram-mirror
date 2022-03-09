@@ -49,11 +49,15 @@
   </div>
 
   <div class="col-md-6">
+    {%if images%}
     {% for image in images %}
     {% include 'post.html' %}
 
     {% endfor %}
+    {% else %}
+    <p>No images to show. Create your first post or follow other users</p>
 
+    {%endif%}
 
   </div>
 

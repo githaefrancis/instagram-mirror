@@ -22,6 +22,6 @@ from . import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('images.urls')),
-    re_path('^accounts/',include('registration.backends.default.urls')),
+    re_path('^accounts/',include('registration.backends.simple.urls')),
 
 ] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
