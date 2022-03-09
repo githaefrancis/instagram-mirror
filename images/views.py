@@ -96,7 +96,20 @@ def profile(request):
   return render(request,'profile.html',context)
 
 @login_required(login_url='/accounts/login')
-
+def user_profile(request,id):
+  user=CustomUser.objects.filter(id=id).first()
+  profile=UserProfile.objects.filter(user=user).first()
+  following=user.get_following()
+  followers=user.get_followers()
+  uploaded_images=Image.get_images_by_user(profile)
+  context={
+  
+    "profile":profile,
+    "following":following,
+    "followers":followers,
+    "uploaded_images":uploaded_images
+  }
+  return render(request,'user_profile.html',context)
 
 @login_required(login_url='/accounts/login')
 def follow(request,id):

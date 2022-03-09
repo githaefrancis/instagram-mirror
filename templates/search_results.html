@@ -18,7 +18,7 @@
     <ul class="list-unstyled">
       {% for result in results %}
 
-      <li class="d-flex justify-content-around m-5"><img src="" alt=""> {{result.username}}  <a href="">View Profile</a> <a href="">Follow</a></li>
+      <li class="d-flex justify-content-around m-5"><img src="" alt=""> {{result.username}}  <a href="{% url 'user_profile' result.id %}">View Profile</a> <a href="">Follow</a></li>
 
       {% endfor %}
     </ul>
@@ -28,7 +28,7 @@
 
   <div class="col-md-2">
 
-    <h5>Suggestions For You</h5>
+    
   </div>
 
   <div class="col-md-2"></div>
