@@ -32,10 +32,22 @@ git clone git@github.com:githaefrancis/instagram-mirror.git
 ```
 cd INSTAGRAM-MIRROR
 ```
+3. Create and activate the virtual environment
 
-3. Create database
+```bash
+python3 -m venv virtual
 
-4. Create .env file
+source virtual/bin/ activate
+```
+
+4. Install dependencies from the requirements.txt
+
+```bash
+pip install -r requirements.txt
+```
+5. Create database
+
+6. Create .env file
 
 ```
 export DB_NAME=<name_of_db>
@@ -58,25 +70,25 @@ export DISABLE_COLLECTSTATIC=1
 
 ```
 
-5. Load .env
+7. Load .env
 
 ```
 source .env
 
 ```
 
-6. Migrate models
+8. Migrate models
 
 ```
 python3 manage.py migrate
 ```
-7. Run tests
+9. Run tests
 
 ```
 python3 manage.py test
 ```
 
-8. Run the app
+10. Run the app
 
 ```
 python3 manage.py runserver
@@ -86,7 +98,7 @@ python3 manage.py runserver
 
 ## Livelink
 
-[Prism Gallery](https://instagram-mirror-pro.herokuapp.com/)
+[Instagram mirror](https://instagram-mirror-pro.herokuapp.com/)
 
 ## Contact
 
